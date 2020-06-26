@@ -491,11 +491,21 @@ function update(){
 
 // LOOP
 function loop(){
-	
-    update();
-    draw();
-    frames++;
-    
-    requestAnimationFrame(loop);
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        update();
+        draw();
+        frames++;
+        requestAnimationFrame(loop);
+      } else {
+
+        update();
+        draw();
+        frames++;
+        requestAnimationFrame(loop);
+      }
+    });
+
+
 }
 loop();
